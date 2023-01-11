@@ -1,13 +1,19 @@
 const express = require('express');
 const next = require('next');
 
+
 const app = express();
 const jwt = require('jsonwebtoken');
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
 const nextHandler = nextApp.getRequestHandler();
+
+
 
 const blacklist = [];
 
@@ -15,13 +21,18 @@ const blacklist = [];
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+
+
 nextApp.prepare().then(() => {
 
   app.get('/profile', verifyJWT, nextHandler);
 
 
+
+
 function verifyJWT(req, res, next) {
-  var token = app.get('token');
+  var token = req.cookies.token;
+
   if (!token || token==='Login inválido!') return res.redirect('/');
 
   const index = blacklist.findIndex(item => item === token);
@@ -33,7 +44,6 @@ function verifyJWT(req, res, next) {
     // se tudo estiver ok, salva no request para uso posterior
     req.userId = decoded.id;
 
-    app.set('token','');
     next();
   });
 }
@@ -52,7 +62,7 @@ app.post('/login', (req, res, next) => {
       expiresIn: 1000 // expires in 5min
     });
     }
-    app.set('token', token);
+
     return res.send(token);
 
     

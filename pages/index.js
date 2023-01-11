@@ -33,7 +33,13 @@ const theme = createTheme();
 export default function SignIn() {
 
   useEffect(()=>{
-    const novoToken=localStorage.getItem('token');
+    const novo = localStorage.getItem('token');
+    const novoToken=Cookies.get('token');
+
+    if(!novoToken){
+      Cookies.set('token', novo);
+    };
+    
     const novoRemember=localStorage.getItem('remember');
 
     
@@ -50,9 +56,9 @@ export default function SignIn() {
       };
     };
 
-    //if(novoRemember && (novoToken&&novoToken!=='Login inválido!')){
-     // document.location.pathname = '/profile';
-  //  }
+    if(novoRemember && (novoToken&&novoToken!=='Login inválido!')){
+      document.location.pathname = '/profile';
+    }
     
   },[])
 
@@ -74,7 +80,10 @@ export default function SignIn() {
          alert(response.data)
        }else{
          setToken(response.data);
-         localStorage.setItem('token',response.data);
+
+          Cookies.set('token',response.data);
+         localStorage.setItem('token', response.data);
+
     document.location.pathname = '/profile';
        }
        }
@@ -90,7 +99,8 @@ export default function SignIn() {
       function togleRemember(event){
         const novoRemember = remember?false:true;
         setRemember(novoRemember);
-        localStorage.setItem('remember',novoRemember);
+        localStorage.setItem('remember', novoRemember);
+
       }
       
     
