@@ -26,20 +26,22 @@ app.use(bodyParser.json());
 nextApp.prepare().then(() => {
 
   app.get('/profile', verifyJWT, nextHandler);
-
-
+  app.get('/refresh', verifyJWT, nextHandler);
+  app.get('/status_code', verifyJWT, nextHandler);
+  
 
 
 function verifyJWT(req, res, next) {
   var token = req.cookies.token;
 
   if (!token || token==='Login inválido!') return res.redirect('/');
+              
 
   const index = blacklist.findIndex(item => item === token);
   if(index !== -1) return res.status(401).end();
 
   jwt.verify(token, process.env.SECRET, function (err, decoded) {
-    if (err) return res.status(401).json({ auth: false, message: 'Failed to authenticate token.' });
+    if (err) return res.status(401).redirect('/');
 
     // se tudo estiver ok, salva no request para uso posterior
     req.userId = decoded.id;

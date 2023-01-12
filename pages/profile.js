@@ -1,49 +1,62 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Header from './Components/Header';
-import Pagination from './Components/Pagination';
+import Pagination from './api/src/Pagination.js';
+
 
 
 
 
 export default function profile(){
-
-  const [pessoas, setPessoas]=useState([{}]);
+  
+  const [filter, setFilter]=useState('');
+  const [pessoas, setPessoas]=useState([{nome:'', email:'', user:''}]);
+  const [currentPage,setCurrentPage]=useState(1);
+  
+  
 
   useEffect(()=>{
      axios
-        .get("https://randomuser.me/api/?results=12")
+        .get("https://randomuser.me/api/?results=120")
      .then((response) => {
 
        const pessoa = response.data.results.map((item)=>{
-         return {nome: `${item.name.first} ${item.name.last}`, email: item.email, foto: item.picture.large, user: item.login.username, idade: item.dob.age}
+         return {nome: `${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`, email: item.email, foto: item.picture.large, user: item.login.username.toLowerCase(), idade: item.dob.age}
        })
-       
-        
-      
-       
+  
        setPessoas(pessoa);
        }
           )
      .catch((err) => {
        console.error("ops! ocorreu um erro" + err);
      })
+
+    
   },[]);
 
-  console.log(pessoas)
+  console.log(pessoas);
+  console.log(filter)
+ 
+
+    let pageSize = 12;
+    const offset = (currentPage - 1) * pageSize;
+    const filteredPessoas = pessoas.filter(({nome,email, user})=>nome.includes(filter.toUpperCase())||email.includes(filter)||user.includes(filter.toLowerCase()));
+    const currentData = filteredPessoas.slice(offset, offset + pageSize);
+
+
   
   return(
     <>
-      <Header />
-      <section class='cards'>
- <div class="box">
-    {pessoas.map((item,index)=><div key={index}>
+      <Header onChangeSearch={e=>setFilter(e)} />
+      <section className='cards'>
+ <div className="box">
+    {currentData.map((item,index)=><div key={index}>
       
-      <div class="card">
-        <div class="imgBx">
+      <div className="card">
+        <div className="imgBx">
             <img src={item.foto}  alt="images"/>
         </div>
-        <div class="details">
+        <div className="details">
             <h2>{item.nome}</h2>
           <div> {item.email}</div>
           <div>User: {item.user}</div>
@@ -56,8 +69,14 @@ export default function profile(){
    </div>
 </section>
 
-
-      <Pagination />
+<Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={pessoas.length}
+        pageSize={pageSize}
+        onPageChange={page => setCurrentPage(page)}
+      />
+      
     </>
     
   )

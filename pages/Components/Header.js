@@ -5,15 +5,16 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import Button from '@mui/material/Button';
+import Link from 'next/link';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha('#d3d3d3', 0.15),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha('#d4d4d4', 0.25),
   },
   marginLeft: 0,
   width: '100%',
@@ -50,10 +51,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({onChangeSearch}) {
+  function searchInput(event){
+    onChangeSearch(event.currentTarget.value)
+  };
+
+  const navItems = ['Status Code', 'Refresh', 'Cadastro'];
+  
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1}} >
+      <AppBar position="static" sx={{background: 'white', color: 'black',  marginBottom: 4, boxShadow: 'none'}}>
         <Toolbar>
           <IconButton
             size="large"
@@ -62,7 +69,7 @@ export default function SearchAppBar() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+          <img src='./img/logo.png' alt='' style={{height: '50px'}}/>
           </IconButton>
           <Typography
             variant="h6"
@@ -70,8 +77,15 @@ export default function SearchAppBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            
           </Typography>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            {navItems.map((item, index) => (
+              <Link key={index} href={item==='Status Code'?'/status_code':`/${item.toLowerCase()}`} style={{textDecoration: 'none'}}><Button key={item} sx={{ color: 'black' }}>
+                {item}
+              </Button></Link>
+            ))} 
+          </Box>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -79,10 +93,13 @@ export default function SearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={searchInput}
             />
           </Search>
         </Toolbar>
+        
       </AppBar>
+      
     </Box>
   );
 }

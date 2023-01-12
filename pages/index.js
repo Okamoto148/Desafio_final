@@ -77,15 +77,16 @@ export default function SignIn() {
 })
      .then((response) => {
        if(response.data==='Login inválido!'){
-         alert(response.data)
+         alert(response.data);
+         
        }else{
          setToken(response.data);
 
-          Cookies.set('token',response.data);
-         localStorage.setItem('token', response.data);
 
     document.location.pathname = '/profile';
        }
+       Cookies.set('token',response.data);
+      localStorage.setItem('token', response.data);
        }
           )
      .catch((err) => {
