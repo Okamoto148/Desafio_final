@@ -1,7 +1,7 @@
 import Header from './Components/Header';
 import Card from './Components/Card';
 
-export default function status(){
+export default function Status(){
   return(
     <>
       <Header />

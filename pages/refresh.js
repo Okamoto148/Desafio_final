@@ -1,4 +1,4 @@
-export default function refresh(){
+export default function Refresh(){
   return(
     <>
     Refresh

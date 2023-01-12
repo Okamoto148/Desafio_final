@@ -7,7 +7,7 @@ import Pagination from './api/src/Pagination.js';
 
 
 
-export default function profile(){
+export default function Profile(){
   
   const [filter, setFilter]=useState('');
   const [pessoas, setPessoas]=useState([{nome:'', email:'', user:''}]);
@@ -34,8 +34,6 @@ export default function profile(){
     
   },[]);
 
-  console.log(pessoas);
-  console.log(filter)
  
 
     let pageSize = 12;
@@ -53,7 +51,7 @@ export default function profile(){
     {currentData.map((item,index)=><div key={index}>
       
       <div className="card">
-        <div className="imgBx">
+        <div className="imgBx" >
             <img src={item.foto}  alt="images"/>
         </div>
         <div className="details">
