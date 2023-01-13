@@ -56,7 +56,7 @@ export default function SearchAppBar({onChangeSearch}) {
     onChangeSearch(event.currentTarget.value)
   };
 
-  const navItems = ['Status Code', 'Refresh', 'Cadastro'];
+  const navItems = ['Profile','Status Code', 'Refresh', 'Cadastro'];
   
   return (
     <Box sx={{ flexGrow: 1}} >
