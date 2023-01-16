@@ -1,8 +1,8 @@
-import Header from './Components/Header';
-import List from './Components/List';
+import Header from './api/Components/Header';
+import Lista from './api/Components/Lista';
 import { useState, useEffect } from 'react';
-import FormDialog from './Components/FormDialog';
-import DialogUser from './Components/DialogUser';
+import FormDialog from './api/Components/FormDialog';
+import DialogUser from './api/Components/DialogUser';
 import axios from 'axios';
 
 
@@ -178,7 +178,7 @@ export default function Cadastro() {
     <section>
       <Header />
       <div style={{ width: '50%', margin: 'auto' }}>
-        <List
+        <Lista
           lista={lista}
           imagem=''
           handleUser={handleUser}

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import Header from './Components/Header';
+import Header from './api/Components/Header';
 import Pagination from './api/src/Pagination.js';
 
 
