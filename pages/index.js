@@ -72,7 +72,7 @@ export default function SignIn() {
 
       axios
         .post("./login",{
-           user: data.get('email'),
+           user: data.get('userName'),
            pass: data.get('password')
 })
      .then((response) => {
@@ -95,7 +95,6 @@ export default function SignIn() {
   };
 
 
-  console.log(token)
 
       function togleRemember(event){
         const novoRemember = remember?false:true;
@@ -132,10 +131,9 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="userName"
+              label="Username"
+              name="userName"
               autoFocus
             />
             <TextField

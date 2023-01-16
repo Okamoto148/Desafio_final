@@ -60,7 +60,7 @@ export default function RecipeReviewCard() {
             label='Escolha o status code'
             options={statusCode}
             value={selectStatus}
-            onNumero={e=>setSelectStatus(e)}
+            onChange={e=>setSelectStatus(e)}
             />
         </Typography>
       </CardContent>

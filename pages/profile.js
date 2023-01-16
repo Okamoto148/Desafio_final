@@ -12,6 +12,12 @@ export default function Profile(){
   const [filter, setFilter]=useState('');
   const [pessoas, setPessoas]=useState([{nome:'', email:'', user:''}]);
   const [currentPage,setCurrentPage]=useState(1);
+
+  useEffect(()=>{
+    if(filter){
+      setCurrentPage(1);
+    }
+  },[filter])
   
   
 
@@ -30,16 +36,15 @@ export default function Profile(){
      .catch((err) => {
        console.error("ops! ocorreu um erro" + err);
      })
-
-    
   },[]);
 
  
 
     let pageSize = 12;
     const offset = (currentPage - 1) * pageSize;
-    const filteredPessoas = pessoas.filter(({nome,email, user})=>nome.includes(filter.toUpperCase())||email.includes(filter)||user.includes(filter.toLowerCase()));
+    const filteredPessoas = pessoas.filter(({nome,email, user})=>nome.includes(filter.toUpperCase())||email.includes(filter.toLowerCase())||user.includes(filter.toLowerCase()));
     const currentData = filteredPessoas.slice(offset, offset + pageSize);
+
 
 
   

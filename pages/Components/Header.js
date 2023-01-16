@@ -69,7 +69,7 @@ export default function SearchAppBar({onChangeSearch}) {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-          <img src='./img/logo.png' alt='' style={{height: '50px'}}/>
+          <img src='./favicon.ico' alt='' style={{height: '50px'}}/>
           </IconButton>
           <Typography
             variant="h6"

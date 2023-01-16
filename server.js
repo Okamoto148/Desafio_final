@@ -1,9 +1,11 @@
 const express = require('express');
 const next = require('next');
-
+const jwt = require('jsonwebtoken');
+const { MongoClient } = require('mongodb');
 
 const app = express();
-const jwt = require('jsonwebtoken');
+const uri = process.env['URI'];
+const client = new MongoClient(uri);
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -28,8 +30,42 @@ nextApp.prepare().then(() => {
   app.get('/profile', verifyJWT, nextHandler);
   app.get('/refresh', verifyJWT, nextHandler);
   app.get('/status_code', verifyJWT, nextHandler);
-  
 
+  app.get("/get", (req, res) => {
+    client.connect(err => {
+        client.db("registrationList").collection("registration").findOne({}, function(err, result) {
+          if (err) throw err;
+          res.send(result.registration);
+          console.log(result)
+        });
+      });
+  });
+
+      app.post('/create', function (req, res, next) {
+  client.connect(err => {
+const registrationList = client.db("registrationList").collection("registration");
+    const registration = req.body.lista;
+
+    registrationList.insertOne({registration}, function (err, res) {
+      if (err) throw err;
+      console.log("1 registration inserted");
+    });
+  })
+  res.send('Customer created');
+})
+
+
+app.post('/update', function (req, res, next) {
+  client.connect(err => {
+const registrationList = client.db("crmdb").collection("customers");
+    const registration = req.body.lista;
+    customers.findOneAndReplace({},{registration}, function (err, res) {
+      if (err) throw err;
+      console.log("1 registration inserted");
+    });
+  })
+  res.send('Customer created');
+});
 
 function verifyJWT(req, res, next) {
   var token = req.cookies.token;
@@ -53,7 +89,7 @@ function verifyJWT(req, res, next) {
 app.post('/login', (req, res, next) => {
   console.log(req.body.token)
   //esse teste abaixo deve ser feito no seu banco de dados
-  if (req.body.user === 'leandro@leandro' && req.body.pass === 'leandro') {
+  if (req.body.user === 'desafiosharenergy' && req.body.pass === 'sh@r3n3rgy') {
     //auth ok
     const userId = 1; //esse id viria do banco de dados
 
