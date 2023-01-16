@@ -25,11 +25,12 @@ export default function FormDialog({label='Novo Cadastro', handleCpfChange, CPF,
       };
 
 
+
   
 
   return (
     <div>
-      <Fab color="primary" aria-label="add">
+      <Fab color="primary" aria-label="add" sx={{position: 'absolute', bottom: 16, right: 16,}} >
         <AddIcon onClick={handleClickOpen}/>
       </Fab>
 

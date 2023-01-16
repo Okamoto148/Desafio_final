@@ -1,48 +1,48 @@
 import Header from './Components/Header';
 import List from './Components/List';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import FormDialog from './Components/FormDialog';
 import DialogUser from './Components/DialogUser';
 import axios from 'axios';
 
 
-export default function Cadastro(){
-  const [lista,setLista]=useState([{}]);
+export default function Cadastro() {
+  const [lista, setLista] = useState([{}]);
   const [CPF, setCPF] = useState('');
   const [tel, setTel] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [adress, setAdress] = useState('');
-  const options=['masculino','feminino'];
+  const options = ['masculino', 'feminino'];
   const [genre, setGenre] = useState('');
   const [open, setOpen] = useState(false);
-  const [nextId,setNextId] = useState(1);
-  const [userOpen, setUserOpen]=useState(false);
-  const [userIndex, setUserIndex]=useState('');
+  const [nextId, setNextId] = useState(1);
+  const [userOpen, setUserOpen] = useState(false);
+  const [userIndex, setUserIndex] = useState('');
 
-  useEffect(()=>{
-    
-     axios
-        .get("/get")
-        .then((res) => {
-          const newList = res.data;
-          setLista(newList?newList:[{}])
-          console.log(`Este é o ${res.data}`)
+  useEffect(() => {
 
-         })
-         .catch((error) => {
-           console.log(error);
-         });
+    axios
+      .get("/get")
+      .then((res) => {
+        const newList = res.data;
+        setLista(newList ? newList : [{}])
+        console.log(`Este é o ${res.data}`)
 
-    
-  },[])
-
-  
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
 
-  
+  }, [])
 
-    function handleCpfChange(event) {
+
+
+
+
+
+  function handleCpfChange(event) {
     const notFormattedCpf = event.target.value
     const formattedCpf = notFormattedCpf.replace(/\D/g, '')
       .replace(/(\d{3})(\d)/, '$1.$2')
@@ -52,75 +52,75 @@ export default function Cadastro(){
     setCPF(formattedCpf)
   }
 
-    function handleTelChange(event) {
+  function handleTelChange(event) {
     const notFormattedTel = event.target.value
     const formattedTel = notFormattedTel.replace(/\D/g, '')
-    .replace(/(\d{2})(\d)/, '($1) $2')
-    .replace(/(\d{5})(\d)/, '$1-$2')
-    .replace(/(-\d{4})\d+?$/, '$1')
-      
+      .replace(/(\d{2})(\d)/, '($1) $2')
+      .replace(/(\d{5})(\d)/, '$1-$2')
+      .replace(/(-\d{4})\d+?$/, '$1')
+
     setTel(formattedTel)
   }
 
-  function handleRegister(){
-    if(userIndex){
-    const newList = lista[userIndex];
-    newList.name = name;
-    newList.email = email;
-    newList.tel = tel;
-    newList.adress = adress;
-    newList.CPF = CPF;
-    newList.genre = genre;
-    setOpen(false);
-    setUserIndex('');
-    setName('');
-    setEmail('');
-    setTel('');
-    setAdress('');
-    setGenre('');
-    setCPF('');
-       axios
-        .post("./update",{
-           lista: lista,
-        });
-    
-      
-    }else{
-    
-    const newList = [...lista, {name: name, email: email, tel: tel, adress: adress, CPF: CPF, id: nextId, imagem: genre==='masculino'?`https://randomuser.me/api/portraits/men/${nextId}.jpg`:`https://randomuser.me/api/portraits/women/${nextId}.jpg`}];
-    setNextId(nextId+1);
-    setLista(newList);
-    setOpen(false);
-    setName('');
-    setEmail('');
-    setTel('');
-    setAdress('');
-    setGenre('');
-    setCPF('');
-
-
-
-      
-
-    if(newList.length<=2){
-
-       axios
-        .post("./create",{
-           lista: newList,
+  function handleRegister() {
+    if (userIndex) {
+      const newList = lista[userIndex];
+      newList.name = name;
+      newList.email = email;
+      newList.tel = tel;
+      newList.adress = adress;
+      newList.CPF = CPF;
+      newList.genre = genre;
+      setOpen(false);
+      setUserIndex('');
+      setName('');
+      setEmail('');
+      setTel('');
+      setAdress('');
+      setGenre('');
+      setCPF('');
+      axios
+        .post("./update", {
+          lista: lista,
         });
 
-          console.log('/create')
 
-      }else{
+    } else {
+
+      const newList = [...lista, { name: name, email: email, tel: tel, adress: adress, CPF: CPF, id: nextId, imagem: genre === 'masculino' ? `https://randomuser.me/api/portraits/men/${nextId}.jpg` : `https://randomuser.me/api/portraits/women/${nextId}.jpg` }];
+      setNextId(nextId + 1);
+      setLista(newList);
+      setOpen(false);
+      setName('');
+      setEmail('');
+      setTel('');
+      setAdress('');
+      setGenre('');
+      setCPF('');
+
+
+
+
+
+      if (newList.length <= 2) {
+
         axios
-        .post("./update",{
-           lista: newList,
-        });
+          .post("./create", {
+            lista: newList,
+          });
 
-       console.log('/update')
+        console.log('/create')
+
+      } else {
+        axios
+          .post("./update", {
+            lista: newList,
+          });
+
+        console.log('/update')
       }
 
-      }
+    }
   }
 
   const handleClickOpen = () => {
@@ -136,20 +136,20 @@ export default function Cadastro(){
   };
 
 
-    const handleUser = index =>{
-      setName(lista[index].name);
-      setEmail(lista[index].email);
-      setTel(lista[index].tel);
-      setAdress(lista[index].adress);
-      setCPF(lista[index].CPF);
-      setUserOpen(true);
-      setUserIndex(index);
-    };
+  const handleUser = index => {
+    setName(lista[index].name);
+    setEmail(lista[index].email);
+    setTel(lista[index].tel);
+    setAdress(lista[index].adress);
+    setCPF(lista[index].CPF);
+    setUserOpen(true);
+    setUserIndex(index);
+  };
 
-  function edit(){
+  function edit() {
 
     const newList = lista[userIndex];
-    setName(newList.name) ;
+    setName(newList.name);
     setEmail(newList.email);
     setTel(newList.tel);
     setAdress(newList.adress);
@@ -161,52 +161,52 @@ export default function Cadastro(){
 
   }
 
-      function apagar(){
-        const newList=[...lista];
-        newList.splice(userIndex,1);
-        setLista(newList);
-        setUserOpen(false);
-      }
+  function apagar() {
+    const newList = [...lista];
+    newList.splice(userIndex, 1);
+    setLista(newList);
+    setUserOpen(false);
+  }
 
- 
 
-  
-  
-  
-  
-  return(
+
+
+
+
+
+  return (
     <section>
       <Header />
-      <div style={{width: '50%', margin: 'auto'}}>
-      <List 
-        lista={lista} 
-        imagem=''
-        handleUser={handleUser}
-        
-        />
-        
-        <FormDialog
-          handleCpfChange={handleCpfChange} 
-          CPF={CPF} 
+      <div style={{ width: '50%', margin: 'auto' }}>
+        <List
+          lista={lista}
+          imagem=''
+          handleUser={handleUser}
+          handleCpfChange={handleCpfChange}
+          CPF={CPF}
           handleTelChange={handleTelChange}
           tel={tel}
-          onChangeName={e=>setName(e)}
+          onChangeName={e => setName(e)}
           name={name}
-          onChangeEmail={e=>setEmail(e)}
+          onChangeEmail={e => setEmail(e)}
           email={email}
-          onChangeAdress={e=>setAdress(e)}
+          onChangeAdress={e => setAdress(e)}
           adress={adress}
           options={options}
-          onChange={e=>setGenre(e)}
+          onChange={e => setGenre(e)}
           value={genre}
           handleRegister={handleRegister}
           open={open}
           handleClickOpen={handleClickOpen}
           handleClose={handleClose}
-          />
+          genre={genre}
+
+        />
+
+
       </div>
 
-      <DialogUser 
+      <DialogUser
         userHandleClose={userHandleClose}
         userOpen={userOpen}
         userName={name}

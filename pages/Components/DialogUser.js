@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import ListaCadastro from './ListaCadastro';
 
-export default function AlertDialog({userOpen, userHandleClose, userName, userEmail, userPhone, userAdress, userCPF, edit, apagar}) {
+export default function AlertDialog({ userOpen, userHandleClose, userName, userEmail, userPhone, userAdress, userCPF, userEdit, userDel }) {
 
 
 
@@ -18,19 +18,18 @@ export default function AlertDialog({userOpen, userHandleClose, userName, userEm
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogContent sx={{width: '500px'}}>
+        <DialogContent sx={{ width: '500px' }}>
           <DialogContentText id="alert-dialog-description">
-           <ListaCadastro 
-             userName={userName}
-             userEmail={userEmail}
-             userPhone={userPhone}
-             userAdress={userAdress}
-             userCPF={userCPF}
-             userPhone={userPhone}
-             edit={edit}
-             apagar={apagar}
-             
-             />
+            <ListaCadastro
+              userName={userName}
+              userEmail={userEmail}
+              userAdress={userAdress}
+              userCPF={userCPF}
+              userPhone={userPhone}
+              userEdit={userEdit}
+              userDel={userDel}
+
+            />
           </DialogContentText>
         </DialogContent>
         <DialogActions >

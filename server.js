@@ -57,9 +57,9 @@ const registrationList = client.db("registrationList").collection("registration"
 
 app.post('/update', function (req, res, next) {
   client.connect(err => {
-const registrationList = client.db("crmdb").collection("customers");
+const registrationList = client.db("registrationList").collection("registration");
     const registration = req.body.lista;
-    customers.findOneAndReplace({},{registration}, function (err, res) {
+    registrationList.findOneAndReplace({},{registration}, function (err, res) {
       if (err) throw err;
       console.log("1 registration inserted");
     });
@@ -87,11 +87,10 @@ function verifyJWT(req, res, next) {
 }
 
 app.post('/login', (req, res, next) => {
-  console.log(req.body.token)
-  //esse teste abaixo deve ser feito no seu banco de dados
+
   if (req.body.user === 'desafiosharenergy' && req.body.pass === 'sh@r3n3rgy') {
     //auth ok
-    const userId = 1; //esse id viria do banco de dados
+    const userId = 1; 
 
     if(req.body.token){
       var token = req.body.token;
@@ -109,13 +108,6 @@ app.post('/login', (req, res, next) => {
   res.send('Login inválido!');
 })
 
-
-
-
-  // Message Sending
-  app.get("/custom-route", (req, res) => {
-    res.send("Custom Route!!")
-  })
 
   app.get("*", nextHandler)
   app.post('*', nextHandler)
