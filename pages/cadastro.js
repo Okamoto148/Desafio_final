@@ -194,7 +194,6 @@ export default function Cadastro() {
           adress={adress}
           options={options}
           onChange={e => setGenre(e)}
-          value={genre}
           handleRegister={handleRegister}
           open={open}
           handleClickOpen={handleClickOpen}
