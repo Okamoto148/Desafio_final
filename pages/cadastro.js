@@ -216,6 +216,25 @@ export default function Cadastro() {
         edit={edit}
         apagar={apagar}
       />
+      <FormDialog
+         handleCpfChange={handleCpfChange} 
+          CPF={CPF} 
+          handleTelChange={handleTelChange}
+          tel={tel}
+          onChangeName={e=>setName(e)}
+          name={name}
+          onChangeEmail={e=>setEmail(e)}
+          email={email}
+          onChangeAdress={e=>setAdress(e)}
+          adress={adress}
+          options={options}
+          onChange={e=>setGenre(e)}
+          value={genre}
+          handleRegister={handleRegister}
+          open={open}
+          handleClickOpen={handleClickOpen}
+          handleClose={handleClose}
+        />
     </section>
   )
 }

@@ -6,8 +6,9 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import FormDialog from './FormDialog';
 
+ 
 
-export default function CheckboxListSecondary({lista, imagem, handleUser,label='Novo Cadastro', handleCpfChange, CPF, tel, handleTelChange, onChangeName, name, onChangeEmail, email, onChangeAdress, adress, title='Novo Cadastro', handleRegister, onChange, options, value, open, handleClickOpen, handleClose, genre}) {
+export default function CheckboxListSecondary({lista, imagem, handleUser,label='Novo Cadastro'}) {
 
 
   return (
@@ -34,25 +35,7 @@ export default function CheckboxListSecondary({lista, imagem, handleUser,label='
         </div>);
       })}
 
-      <FormDialog
-         handleCpfChange={handleCpfChange} 
-          CPF={CPF} 
-          handleTelChange={handleTelChange}
-          tel={tel}
-          onChangeName={e=>setName(e)}
-          name={name}
-          onChangeEmail={e=>setEmail(e)}
-          email={email}
-          onChangeAdress={e=>setAdress(e)}
-          adress={adress}
-          options={options}
-          onChange={e=>setGenre(e)}
-          value={genre}
-          handleRegister={handleRegister}
-          open={open}
-          handleClickOpen={handleClickOpen}
-          handleClose={handleClose}
-        />
+      
 
     </List>
    
