@@ -53,12 +53,12 @@ export default function SignIn() {
            token: novoToken,
           remember: novoRemember
         });
+
+        document.location.pathname = '/profile';
       };
     };
 
-    if(novoRemember && (novoToken&&novoToken!=='Login inválido!')){
-      document.location.pathname = '/profile';
-    }
+  
     
   },[])
 
