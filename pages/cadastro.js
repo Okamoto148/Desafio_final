@@ -187,7 +187,6 @@ export default function Cadastro() {
           lista={lista}
           imagem=''
           handleUser={handleUser}
-          handleCpfChange={handleCpfChange}
           CPF={CPF}
           handleTelChange={handleTelChange}
           tel={tel}
