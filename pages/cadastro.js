@@ -83,10 +83,13 @@ export default function Cadastro() {
       setAdress('');
       setGenre('');
       setCPF('');
+      
       axios
         .post("./update", {
           lista: lista,
         });
+
+      console.log(lista)
 
 
     } else {
@@ -171,6 +174,11 @@ export default function Cadastro() {
     newList.splice(userIndex, 1);
     setLista(newList);
     setUserOpen(false);
+
+    axios
+        .post("./update", {
+          lista: newList,
+        });
   }
 
 
