@@ -88,7 +88,7 @@ nextApp.prepare().then(() => {
 
   app.post('/login', (req, res, next) => {
 
-    if (req.body.user === 'desafiosharenergy' && req.body.pass === 'sh@r3n3rgy') {
+    if (req.body.user === 'leandro' && req.body.pass === 'leandro') {
       //auth ok
       const userId = 1;
 
