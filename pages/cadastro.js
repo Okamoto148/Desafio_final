@@ -63,6 +63,10 @@ export default function Cadastro() {
   }
 
   function handleRegister() {
+  if(!name||!email||!tel||!adress||!genre||!CPF){
+    alert('Favor colocar todos os dados!')
+  }else{
+    
     if (userIndex) {
       const newList = lista[userIndex];
       newList.name = name;
@@ -109,7 +113,7 @@ export default function Cadastro() {
             lista: newList,
           });
 
-        console.log('/create')
+
 
       } else {
         axios
@@ -117,7 +121,8 @@ export default function Cadastro() {
             lista: newList,
           });
 
-        console.log('/update')
+
+      }
       }
 
     }
@@ -199,25 +204,7 @@ export default function Cadastro() {
           handleClickOpen={handleClickOpen}
           handleClose={handleClose}
           genre={genre}
-
-        />
-
-
-      </div>
-
-      <DialogUser
-        userHandleClose={userHandleClose}
-        userOpen={userOpen}
-        userName={name}
-        userEmail={email}
-        userPhone={tel}
-        userCPF={CPF}
-        userAdress={adress}
-        edit={edit}
-        apagar={apagar}
-      />
-      <FormDialog
-         handleCpfChange={handleCpfChange} 
+           handleCpfChange={handleCpfChange} 
           CPF={CPF} 
           handleTelChange={handleTelChange}
           tel={tel}
@@ -234,7 +221,24 @@ export default function Cadastro() {
           open={open}
           handleClickOpen={handleClickOpen}
           handleClose={handleClose}
+
         />
+
+
+      </div>
+
+      <DialogUser
+        userHandleClose={userHandleClose}
+        userOpen={userOpen}
+        userName={name}
+        userEmail={email}
+        userPhone={tel}
+        userCPF={CPF}
+        userAdress={adress}
+        userEdit={edit}
+        userDel={apagar}
+      />
+      
     </section>
   )
 }

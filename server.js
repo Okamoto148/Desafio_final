@@ -33,80 +33,80 @@ nextApp.prepare().then(() => {
 
   app.get("/get", (req, res) => {
     client.connect(err => {
-        client.db("registrationList").collection("registration").findOne({}, function(err, result) {
-          if (err) throw err;
-          res.send(result.registration);
-          console.log(result)
-        });
+      client.db("registrationList").collection("registration").findOne({}, function(err, result) {
+        if (err) throw err;
+        res.send(result.registration);
+
       });
+    });
   });
 
-      app.post('/create', function (req, res, next) {
-  client.connect(err => {
-const registrationList = client.db("registrationList").collection("registration");
-    const registration = req.body.lista;
+  app.post('/create', function(req, res, next) {
+    client.connect(err => {
+      const registrationList = client.db("registrationList").collection("registration");
+      const registration = req.body.lista;
 
-    registrationList.insertOne({registration}, function (err, res) {
-      if (err) throw err;
-      console.log("1 registration inserted");
-    });
+      registrationList.insertOne({ registration }, function(err, res) {
+        if (err) throw err;
+        console.log("1 registration inserted");
+      });
+    })
+    res.send('Customer created');
   })
-  res.send('Customer created');
-})
 
 
-app.post('/update', function (req, res, next) {
-  client.connect(err => {
-const registrationList = client.db("registrationList").collection("registration");
-    const registration = req.body.lista;
-    registrationList.findOneAndReplace({},{registration}, function (err, res) {
-      if (err) throw err;
-      console.log("1 registration inserted");
-    });
-  })
-  res.send('Customer created');
-});
-
-function verifyJWT(req, res, next) {
-  var token = req.cookies.token;
-
-  if (!token || token==='Login inválido!') return res.redirect('/');
-              
-
-  const index = blacklist.findIndex(item => item === token);
-  if(index !== -1) return res.status(401).end();
-
-  jwt.verify(token, process.env.SECRET, function (err, decoded) {
-    if (err) return res.status(401).redirect('/');
-
-    // se tudo estiver ok, salva no request para uso posterior
-    req.userId = decoded.id;
-
-    next();
+  app.post('/update', function(req, res, next) {
+    client.connect(err => {
+      const registrationList = client.db("registrationList").collection("registration");
+      const registration = req.body.lista;
+      registrationList.findOneAndReplace({}, { registration }, function(err, res) {
+        if (err) throw err;
+        console.log("1 registration inserted");
+      });
+    })
+    res.send('Customer created');
   });
-}
 
-app.post('/login', (req, res, next) => {
+  function verifyJWT(req, res, next) {
+    var token = req.cookies.token;
 
-  if (req.body.user === 'desafiosharenergy' && req.body.pass === 'sh@r3n3rgy') {
-    //auth ok
-    const userId = 1; 
+    if (!token || token === 'Login inválido!') return res.redirect('/');
 
-    if(req.body.token){
-      var token = req.body.token;
-    }else{
-      var token = jwt.sign({ userId }, process.env.SECRET, {
-      expiresIn: 1000 // expires in 5min
+
+    const index = blacklist.findIndex(item => item === token);
+    if (index !== -1) return res.status(401).end();
+
+    jwt.verify(token, process.env.SECRET, function(err, decoded) {
+      if (err) return res.status(401).redirect('/');
+
+      // se tudo estiver ok, salva no request para uso posterior
+      req.userId = decoded.id;
+
+      next();
     });
-    }
-
-    return res.send(token);
-
-    
   }
 
-  res.send('Login inválido!');
-})
+  app.post('/login', (req, res, next) => {
+
+    if (req.body.user === 'desafiosharenergy' && req.body.pass === 'sh@r3n3rgy') {
+      //auth ok
+      const userId = 1;
+
+      if (req.body.token) {
+        var token = req.body.token;
+      } else {
+        var token = jwt.sign({ userId }, process.env.SECRET, {
+          expiresIn: 1000 // expires in 5min
+        });
+      }
+
+      return res.send(token);
+
+
+    }
+
+    res.send('Login inválido!');
+  })
 
 
   app.get("*", nextHandler)
