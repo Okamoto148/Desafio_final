@@ -8,7 +8,7 @@ import FormDialog from './FormDialog';
 
  
 
-export default function CheckboxListSecondary({lista, imagem, handleUser,label='Novo Cadastro', handleCpfChange, CPF, handleTelChange, tel, onChangeName, name, onChangeEmail, email, onChangeAdress, adress, options, onChange, genre, handleRegister, open, handleClickOpen, handleClose}) {
+export default function CheckboxListSecondary({lista, imagem, handleUser,label='Novo Cadastro'}) {
 
 
   return (
@@ -36,25 +36,7 @@ export default function CheckboxListSecondary({lista, imagem, handleUser,label='
       })}
 
       
-<FormDialog
-         handleCpfChange={handleCpfChange} 
-          CPF={CPF} 
-          handleTelChange={handleTelChange}
-          tel={tel}
-          onChangeName={onChangeName}
-          name={name}
-          onChangeEmail={onChangeEmail}
-          email={email}
-          onChangeAdress={onChangeAdress}
-          adress={adress}
-          options={options}
-          onChange={onChange}
-          genre={genre}
-          handleRegister={handleRegister}
-          open={open}
-          handleClickOpen={handleClickOpen}
-          handleClose={handleClose}
-        />
+
     </List>
    
       </>

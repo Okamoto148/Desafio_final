@@ -187,7 +187,11 @@ export default function Cadastro() {
           lista={lista}
           imagem=''
           handleUser={handleUser}
-          CPF={CPF}
+         />
+
+<FormDialog
+         handleCpfChange={handleCpfChange} 
+          CPF={CPF} 
           handleTelChange={handleTelChange}
           tel={tel}
           onChangeName={e => setName(e)}
@@ -198,13 +202,12 @@ export default function Cadastro() {
           adress={adress}
           options={options}
           onChange={e => setGenre(e)}
+          value={genre}
           handleRegister={handleRegister}
+          open={open}
           handleClickOpen={handleClickOpen}
           handleClose={handleClose}
-
         />
-
-
       </div>
 
       <DialogUser
@@ -218,6 +221,8 @@ export default function Cadastro() {
         userEdit={edit}
         userDel={apagar}
       />
+      
+      
       
     </section>
   )

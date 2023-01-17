@@ -9,7 +9,7 @@ import Select from './Select';
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 
-export default function FormDialog({label='Novo Cadastro', handleCpfChange, CPF, tel, handleTelChange, onChangeName, name, onChangeEmail, email, onChangeAdress, adress, title='Novo Cadastro', handleRegister, onChange, options, value, open, handleClickOpen, handleClose}) {
+export default function FormDialog({label='Novo Cadastro', handleCpfChange, CPF, tel, handleTelChange, onChangeName, name, onChangeEmail, email, onChangeAdress, adress, title='Novo Cadastro', handleRegister, onChange, options, value, open, handleClickOpen, handleClose,genre}) {
  
 
   function handleNameChange(event){
@@ -30,7 +30,7 @@ export default function FormDialog({label='Novo Cadastro', handleCpfChange, CPF,
 
   return (
     <div>
-      <Fab color="primary" aria-label="add" sx={{position: 'absolute', bottom: 16, right: 16,}} >
+      <Fab color="primary" aria-label="add" sx={{marginTop: '-100px', marginLeft: '90%'}}>
         <AddIcon onClick={handleClickOpen}/>
       </Fab>
 
